@@ -15,6 +15,7 @@ import {
   createLanguageSwitcher,
   t,
 } from './i18n/index.js';
+import './anchorNavigation.js';
 
 const init = async () => {
   await initI18n();
@@ -256,6 +257,14 @@ const init = async () => {
     categories.forEach((category) => {
       const categoryGroup = document.createElement('div');
       categoryGroup.className = 'category-group col-span-full';
+
+      // Add ID for anchor navigation
+      const categoryId = category.name
+        .toLowerCase()
+        .replace(/\s*&\s*/g, '-') // Replace " & " with single dash
+        .replace(/\s+/g, '-') // Replace remaining spaces with dashes
+        .replace(/-+/g, '-'); // Clean up any multiple consecutive dashes
+      categoryGroup.id = categoryId;
 
       const title = document.createElement('h2');
       title.className =
